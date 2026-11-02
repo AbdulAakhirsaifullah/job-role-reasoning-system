@@ -1,5 +1,9 @@
 # Intelligent Job Role & Skill Matching Reasoning System
 
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://job-role-reasoning-system.streamlit.app/)
+
+🔗 **Live Demo:** https://job-role-reasoning-system.streamlit.app/
+
 CT-351 Knowledge Representation & Reasoning, Complex Computing Problem (CCP), Group 9
 NED University of Engineering & Technology
 
