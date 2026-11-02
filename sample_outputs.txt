@@ -1,0 +1,678 @@
+Knowledge base: 6 roles, 15 rules, 87 domain facts
+
+==============================================================================
+Scenario A: Ali, data analyst (all requirements met)
+==============================================================================
+  Initial candidate facts: candidate(ali), has_degree(ali, bachelors), has_skill(ali, pandas), has_skill(ali, python), has_skill(ali, sql), total_experience_years(ali, 1)
+
+  Role results:
+    Role                       Status          Req. met  Skills  Missing
+    Data Analyst               Fully eligible      100%     3/3  nothing
+    Python Developer           Partial match        75%     1/2  Data Structures
+    Machine Learning Engineer  Partial match        60%     1/3  Machine Learning, Data Structures
+    Data Scientist             Partial match        50%     2/4  Statistics, Machine Learning, Degree: Masters or higher
+    Cloud Engineer             Partial match        33%     1/3  Linux, Cloud Computing, Experience: 2+ years, Certification: AWS Certified Solutions Architect
+    Frontend Developer         Not matched          40%     0/3  HTML, CSS, JavaScript
+
+  Forward chaining trace (only rules that produced new facts are listed):
+    [pass 1] R2 -> meets_degree(ali, cloud_engineer)   because has_degree(ali, bachelors), degree_rank(bachelors, 1), min_degree_rank(cloud_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(ali, data_analyst)   because has_degree(ali, bachelors), degree_rank(bachelors, 1), min_degree_rank(data_analyst, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(ali, frontend_developer)   because has_degree(ali, bachelors), degree_rank(bachelors, 1), min_degree_rank(frontend_developer, 0), gte(1, 0)
+    [pass 1] R2 -> meets_degree(ali, ml_engineer)   because has_degree(ali, bachelors), degree_rank(bachelors, 1), min_degree_rank(ml_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(ali, python_developer)   because has_degree(ali, bachelors), degree_rank(bachelors, 1), min_degree_rank(python_developer, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(ali, data_analyst)   because total_experience_years(ali, 1), min_experience(data_analyst, 0), gte(1, 0)
+    [pass 1] R4 -> meets_experience(ali, data_scientist)   because total_experience_years(ali, 1), min_experience(data_scientist, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(ali, frontend_developer)   because total_experience_years(ali, 1), min_experience(frontend_developer, 0), gte(1, 0)
+    [pass 1] R4 -> meets_experience(ali, ml_engineer)   because total_experience_years(ali, 1), min_experience(ml_engineer, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(ali, python_developer)   because total_experience_years(ali, 1), min_experience(python_developer, 0), gte(1, 0)
+    [pass 1] R5 -> eligible(ali, data_analyst)   because has_skill(ali, python), has_skill(ali, sql), has_skill(ali, pandas), meets_degree(ali, data_analyst), meets_experience(ali, data_analyst)
+    [pass 1] R11 -> recommended(ali, data_analyst)   because eligible(ali, data_analyst)
+    [pass 1] R12 -> matched_skill(ali, cloud_engineer, python)   because requires_skill(cloud_engineer, python), has_skill(ali, python)
+    [pass 1] R12 -> matched_skill(ali, data_analyst, pandas)   because requires_skill(data_analyst, pandas), has_skill(ali, pandas)
+    [pass 1] R12 -> matched_skill(ali, data_analyst, python)   because requires_skill(data_analyst, python), has_skill(ali, python)
+    [pass 1] R12 -> matched_skill(ali, data_analyst, sql)   because requires_skill(data_analyst, sql), has_skill(ali, sql)
+    [pass 1] R12 -> matched_skill(ali, data_scientist, pandas)   because requires_skill(data_scientist, pandas), has_skill(ali, pandas)
+    [pass 1] R12 -> matched_skill(ali, data_scientist, python)   because requires_skill(data_scientist, python), has_skill(ali, python)
+    [pass 1] R12 -> matched_skill(ali, ml_engineer, python)   because requires_skill(ml_engineer, python), has_skill(ali, python)
+    [pass 1] R12 -> matched_skill(ali, python_developer, python)   because requires_skill(python_developer, python), has_skill(ali, python)
+    [pass 1] R13 -> relevant_to(ali, cloud_engineer)   because matched_skill(ali, cloud_engineer, python)
+    [pass 1] R13 -> relevant_to(ali, data_analyst)   because matched_skill(ali, data_analyst, pandas)
+    [pass 1] R13 -> relevant_to(ali, data_scientist)   because matched_skill(ali, data_scientist, pandas)
+    [pass 1] R13 -> relevant_to(ali, ml_engineer)   because matched_skill(ali, ml_engineer, python)
+    [pass 1] R13 -> relevant_to(ali, python_developer)   because matched_skill(ali, python_developer, python)
+    [pass 1] R14 -> knows_category(ali, data)   because has_skill(ali, pandas), belongs_to(pandas, data)
+    [pass 1] R14 -> knows_category(ali, programming)   because has_skill(ali, python), belongs_to(python, programming)
+    [pass 1] R15 -> person(ali)   because candidate(ali)
+    [pass 2] no new facts: fixed point reached
+  Total new facts derived: 28 in 2 passes
+  Eligibility rules still unsatisfied at the fixed point:
+    R6 eligible(ali, ml_engineer) missing: has_skill(ali, machine_learning), has_skill(ali, data_structures)
+    R7 eligible(ali, python_developer) missing: has_skill(ali, data_structures)
+    R8 eligible(ali, frontend_developer) missing: has_skill(ali, html), has_skill(ali, css), has_skill(ali, javascript)
+    R9 eligible(ali, data_scientist) missing: has_skill(ali, statistics), has_skill(ali, machine_learning), meets_degree(ali, data_scientist)
+    R10 eligible(ali, cloud_engineer) missing: has_skill(ali, linux), has_skill(ali, cloud_computing), meets_experience(ali, cloud_engineer), has_cert(ali, aws_solutions_architect)
+
+  Backward chaining for eligible(ali, data_analyst):
+    GOAL: eligible(ali, data_analyst)
+      TRY rule R5: eligible(X, data_analyst) :- has_skill(X, python), has_skill(X, sql), has_skill(X, pandas), meets_degree(X, data_analyst), meets_experience(X, data_analyst).
+            GOAL: has_skill(ali, python)
+              FACT found: has_skill(ali, python)
+            GOAL: has_skill(ali, sql)
+              FACT found: has_skill(ali, sql)
+            GOAL: has_skill(ali, pandas)
+              FACT found: has_skill(ali, pandas)
+            GOAL: meets_degree(ali, data_analyst)
+              TRY rule R2: meets_degree(X, R) :- has_degree(X, D), degree_rank(D, N), min_degree_rank(R, M), gte(N, M).
+                    GOAL: has_degree(ali, D_2)
+                      FACT found: has_degree(ali, bachelors)
+                    GOAL: degree_rank(bachelors, N_2)
+                      FACT found: degree_rank(bachelors, 1)
+                    GOAL: min_degree_rank(data_analyst, M_2)
+                      FACT found: min_degree_rank(data_analyst, 1)
+                    BUILT-IN: gte(1, 1) is true
+              SUCCESS rule R2 proves meets_degree(ali, data_analyst)
+            GOAL: meets_experience(ali, data_analyst)
+              TRY rule R4: meets_experience(X, R) :- total_experience_years(X, Y), min_experience(R, M), gte(Y, M).
+                    GOAL: total_experience_years(ali, Y_3)
+                      FACT found: total_experience_years(ali, 1)
+                    GOAL: min_experience(data_analyst, M_3)
+                      FACT found: min_experience(data_analyst, 0)
+                    BUILT-IN: gte(1, 0) is true
+              SUCCESS rule R4 proves meets_experience(ali, data_analyst)
+      SUCCESS rule R5 proves eligible(ali, data_analyst)
+
+    RESULT: eligible(ali, data_analyst) is PROVED
+
+  Explanation (Data Analyst): Recommended. Every requirement for Data Analyst is met.
+  FINAL RECOMMENDATION: Data Analyst
+
+==============================================================================
+Scenario B: Sara, missing one skill (SQL)
+==============================================================================
+  Initial candidate facts: candidate(sara), has_degree(sara, bachelors), has_skill(sara, data_visualization), has_skill(sara, pandas), has_skill(sara, python), total_experience_years(sara, 0)
+
+  Role results:
+    Role                       Status          Req. met  Skills  Missing
+    Data Analyst               Partial match        80%     2/3  SQL
+    Python Developer           Partial match        75%     1/2  Data Structures
+    Machine Learning Engineer  Partial match        40%     1/3  Machine Learning, Data Structures, Experience: 1+ years
+    Data Scientist             Partial match        33%     2/4  Statistics, Machine Learning, Degree: Masters or higher, Experience: 1+ years
+    Cloud Engineer             Partial match        33%     1/3  Linux, Cloud Computing, Experience: 2+ years, Certification: AWS Certified Solutions Architect
+    Frontend Developer         Not matched          40%     0/3  HTML, CSS, JavaScript
+
+  Forward chaining trace (only rules that produced new facts are listed):
+    [pass 1] R2 -> meets_degree(sara, cloud_engineer)   because has_degree(sara, bachelors), degree_rank(bachelors, 1), min_degree_rank(cloud_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(sara, data_analyst)   because has_degree(sara, bachelors), degree_rank(bachelors, 1), min_degree_rank(data_analyst, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(sara, frontend_developer)   because has_degree(sara, bachelors), degree_rank(bachelors, 1), min_degree_rank(frontend_developer, 0), gte(1, 0)
+    [pass 1] R2 -> meets_degree(sara, ml_engineer)   because has_degree(sara, bachelors), degree_rank(bachelors, 1), min_degree_rank(ml_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(sara, python_developer)   because has_degree(sara, bachelors), degree_rank(bachelors, 1), min_degree_rank(python_developer, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(sara, data_analyst)   because total_experience_years(sara, 0), min_experience(data_analyst, 0), gte(0, 0)
+    [pass 1] R4 -> meets_experience(sara, frontend_developer)   because total_experience_years(sara, 0), min_experience(frontend_developer, 0), gte(0, 0)
+    [pass 1] R4 -> meets_experience(sara, python_developer)   because total_experience_years(sara, 0), min_experience(python_developer, 0), gte(0, 0)
+    [pass 1] R12 -> matched_skill(sara, cloud_engineer, python)   because requires_skill(cloud_engineer, python), has_skill(sara, python)
+    [pass 1] R12 -> matched_skill(sara, data_analyst, pandas)   because requires_skill(data_analyst, pandas), has_skill(sara, pandas)
+    [pass 1] R12 -> matched_skill(sara, data_analyst, python)   because requires_skill(data_analyst, python), has_skill(sara, python)
+    [pass 1] R12 -> matched_skill(sara, data_scientist, pandas)   because requires_skill(data_scientist, pandas), has_skill(sara, pandas)
+    [pass 1] R12 -> matched_skill(sara, data_scientist, python)   because requires_skill(data_scientist, python), has_skill(sara, python)
+    [pass 1] R12 -> matched_skill(sara, ml_engineer, python)   because requires_skill(ml_engineer, python), has_skill(sara, python)
+    [pass 1] R12 -> matched_skill(sara, python_developer, python)   because requires_skill(python_developer, python), has_skill(sara, python)
+    [pass 1] R13 -> relevant_to(sara, cloud_engineer)   because matched_skill(sara, cloud_engineer, python)
+    [pass 1] R13 -> relevant_to(sara, data_analyst)   because matched_skill(sara, data_analyst, pandas)
+    [pass 1] R13 -> relevant_to(sara, data_scientist)   because matched_skill(sara, data_scientist, pandas)
+    [pass 1] R13 -> relevant_to(sara, ml_engineer)   because matched_skill(sara, ml_engineer, python)
+    [pass 1] R13 -> relevant_to(sara, python_developer)   because matched_skill(sara, python_developer, python)
+    [pass 1] R14 -> knows_category(sara, data)   because has_skill(sara, data_visualization), belongs_to(data_visualization, data)
+    [pass 1] R14 -> knows_category(sara, programming)   because has_skill(sara, python), belongs_to(python, programming)
+    [pass 1] R15 -> person(sara)   because candidate(sara)
+    [pass 2] no new facts: fixed point reached
+  Total new facts derived: 23 in 2 passes
+  Eligibility rules still unsatisfied at the fixed point:
+    R5 eligible(sara, data_analyst) missing: has_skill(sara, sql)
+    R6 eligible(sara, ml_engineer) missing: has_skill(sara, machine_learning), has_skill(sara, data_structures), meets_experience(sara, ml_engineer)
+    R7 eligible(sara, python_developer) missing: has_skill(sara, data_structures)
+    R8 eligible(sara, frontend_developer) missing: has_skill(sara, html), has_skill(sara, css), has_skill(sara, javascript)
+    R9 eligible(sara, data_scientist) missing: has_skill(sara, statistics), has_skill(sara, machine_learning), meets_degree(sara, data_scientist), meets_experience(sara, data_scientist)
+    R10 eligible(sara, cloud_engineer) missing: has_skill(sara, linux), has_skill(sara, cloud_computing), meets_experience(sara, cloud_engineer), has_cert(sara, aws_solutions_architect)
+
+  Backward chaining for eligible(sara, data_analyst):
+    GOAL: eligible(sara, data_analyst)
+      TRY rule R5: eligible(X, data_analyst) :- has_skill(X, python), has_skill(X, sql), has_skill(X, pandas), meets_degree(X, data_analyst), meets_experience(X, data_analyst).
+            GOAL: has_skill(sara, python)
+              FACT found: has_skill(sara, python)
+            GOAL: has_skill(sara, sql)
+              TRY rule R1: has_skill(X, T) :- is_a(S, T), has_skill(X, S).
+                    GOAL: is_a(S_2, sql)
+                      FACT found: is_a(postgresql, sql)
+                    GOAL: has_skill(sara, postgresql)
+                      TRY rule R1: has_skill(X, T) :- is_a(S, T), has_skill(X, S).
+                            GOAL: is_a(S_3, postgresql)
+                              NOT PROVED: is_a(S_3, postgresql) (not a known fact, and no rule could prove it)
+                      FAIL rule R1: could not prove is_a(S_3, postgresql)
+                      NOT PROVED: has_skill(sara, postgresql) (not a known fact, and no rule could prove it)
+              FAIL rule R1: could not prove has_skill(sara, postgresql)
+              NOT PROVED: has_skill(sara, sql) (not a known fact, and no rule could prove it)
+      FAIL rule R5: could not prove has_skill(sara, sql)
+      NOT PROVED: eligible(sara, data_analyst) (not a known fact, and no rule could prove it)
+
+    RESULT: eligible(sara, data_analyst) is NOT PROVED
+
+  Explanation (Data Analyst): Not yet eligible for Data Analyst. Missing: SQL.
+  FINAL RECOMMENDATION: No role fully eligible yet
+
+==============================================================================
+Scenario C: Bilal, frontend without a degree
+==============================================================================
+  Initial candidate facts: candidate(bilal), has_degree(bilal, none), has_skill(bilal, css), has_skill(bilal, html), has_skill(bilal, react), total_experience_years(bilal, 1)
+
+  Role results:
+    Role                       Status          Req. met  Skills  Missing
+    Frontend Developer         Fully eligible      100%     3/3  nothing
+    Python Developer           Not matched          25%     0/2  Python, Data Structures, Degree: Bachelors or higher
+    Data Analyst               Not matched          20%     0/3  Python, SQL, Pandas, Degree: Bachelors or higher
+    Machine Learning Engineer  Not matched          20%     0/3  Python, Machine Learning, Data Structures, Degree: Bachelors or higher
+    Data Scientist             Not matched          17%     0/4  Python, Statistics, Machine Learning, Pandas, Degree: Masters or higher
+    Cloud Engineer             Not matched           0%     0/3  Python, Linux, Cloud Computing, Degree: Bachelors or higher, Experience: 2+ years, Certification: AWS Certified Solutions Architect
+
+  Forward chaining trace (only rules that produced new facts are listed):
+    [pass 1] R1 -> has_skill(bilal, javascript)   because is_a(react, javascript), has_skill(bilal, react)
+    [pass 1] R2 -> meets_degree(bilal, frontend_developer)   because has_degree(bilal, none), degree_rank(none, 0), min_degree_rank(frontend_developer, 0), gte(0, 0)
+    [pass 1] R4 -> meets_experience(bilal, data_analyst)   because total_experience_years(bilal, 1), min_experience(data_analyst, 0), gte(1, 0)
+    [pass 1] R4 -> meets_experience(bilal, data_scientist)   because total_experience_years(bilal, 1), min_experience(data_scientist, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(bilal, frontend_developer)   because total_experience_years(bilal, 1), min_experience(frontend_developer, 0), gte(1, 0)
+    [pass 1] R4 -> meets_experience(bilal, ml_engineer)   because total_experience_years(bilal, 1), min_experience(ml_engineer, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(bilal, python_developer)   because total_experience_years(bilal, 1), min_experience(python_developer, 0), gte(1, 0)
+    [pass 1] R8 -> eligible(bilal, frontend_developer)   because has_skill(bilal, html), has_skill(bilal, css), has_skill(bilal, javascript), meets_degree(bilal, frontend_developer), meets_experience(bilal, frontend_developer)
+    [pass 1] R11 -> recommended(bilal, frontend_developer)   because eligible(bilal, frontend_developer)
+    [pass 1] R12 -> matched_skill(bilal, frontend_developer, css)   because requires_skill(frontend_developer, css), has_skill(bilal, css)
+    [pass 1] R12 -> matched_skill(bilal, frontend_developer, html)   because requires_skill(frontend_developer, html), has_skill(bilal, html)
+    [pass 1] R12 -> matched_skill(bilal, frontend_developer, javascript)   because requires_skill(frontend_developer, javascript), has_skill(bilal, javascript)
+    [pass 1] R13 -> relevant_to(bilal, frontend_developer)   because matched_skill(bilal, frontend_developer, css)
+    [pass 1] R14 -> knows_category(bilal, web)   because has_skill(bilal, css), belongs_to(css, web)
+    [pass 1] R15 -> person(bilal)   because candidate(bilal)
+    [pass 2] no new facts: fixed point reached
+  Total new facts derived: 15 in 2 passes
+  Eligibility rules still unsatisfied at the fixed point:
+    R5 eligible(bilal, data_analyst) missing: has_skill(bilal, python), has_skill(bilal, sql), has_skill(bilal, pandas), meets_degree(bilal, data_analyst)
+    R6 eligible(bilal, ml_engineer) missing: has_skill(bilal, python), has_skill(bilal, machine_learning), has_skill(bilal, data_structures), meets_degree(bilal, ml_engineer)
+    R7 eligible(bilal, python_developer) missing: has_skill(bilal, python), has_skill(bilal, data_structures), meets_degree(bilal, python_developer)
+    R9 eligible(bilal, data_scientist) missing: has_skill(bilal, python), has_skill(bilal, statistics), has_skill(bilal, machine_learning), has_skill(bilal, pandas), meets_degree(bilal, data_scientist)
+    R10 eligible(bilal, cloud_engineer) missing: has_skill(bilal, python), has_skill(bilal, linux), has_skill(bilal, cloud_computing), meets_degree(bilal, cloud_engineer), meets_experience(bilal, cloud_engineer), has_cert(bilal, aws_solutions_architect)
+
+  Backward chaining for eligible(bilal, frontend_developer):
+    GOAL: eligible(bilal, frontend_developer)
+      TRY rule R8: eligible(X, frontend_developer) :- has_skill(X, html), has_skill(X, css), has_skill(X, javascript), meets_degree(X, frontend_developer), meets_experience(X, frontend_developer).
+            GOAL: has_skill(bilal, html)
+              FACT found: has_skill(bilal, html)
+            GOAL: has_skill(bilal, css)
+              FACT found: has_skill(bilal, css)
+            GOAL: has_skill(bilal, javascript)
+              TRY rule R1: has_skill(X, T) :- is_a(S, T), has_skill(X, S).
+                    GOAL: is_a(S_5, javascript)
+                      FACT found: is_a(react, javascript)
+                    GOAL: has_skill(bilal, react)
+                      FACT found: has_skill(bilal, react)
+              SUCCESS rule R1 proves has_skill(bilal, javascript)
+            GOAL: meets_degree(bilal, frontend_developer)
+              TRY rule R2: meets_degree(X, R) :- has_degree(X, D), degree_rank(D, N), min_degree_rank(R, M), gte(N, M).
+                    GOAL: has_degree(bilal, D_6)
+                      FACT found: has_degree(bilal, none)
+                    GOAL: degree_rank(none, N_6)
+                      FACT found: degree_rank(none, 0)
+                    GOAL: min_degree_rank(frontend_developer, M_6)
+                      FACT found: min_degree_rank(frontend_developer, 0)
+                    BUILT-IN: gte(0, 0) is true
+              SUCCESS rule R2 proves meets_degree(bilal, frontend_developer)
+            GOAL: meets_experience(bilal, frontend_developer)
+              TRY rule R4: meets_experience(X, R) :- total_experience_years(X, Y), min_experience(R, M), gte(Y, M).
+                    GOAL: total_experience_years(bilal, Y_7)
+                      FACT found: total_experience_years(bilal, 1)
+                    GOAL: min_experience(frontend_developer, M_7)
+                      FACT found: min_experience(frontend_developer, 0)
+                    BUILT-IN: gte(1, 0) is true
+              SUCCESS rule R4 proves meets_experience(bilal, frontend_developer)
+      SUCCESS rule R8 proves eligible(bilal, frontend_developer)
+
+    RESULT: eligible(bilal, frontend_developer) is PROVED
+
+  Explanation (Frontend Developer): Recommended. Every requirement for Frontend Developer is met. Note: JavaScript was inferred from React (skill hierarchy).
+  FINAL RECOMMENDATION: Frontend Developer
+
+==============================================================================
+Scenario D: Zara, skill hierarchy (TensorFlow gives ML)
+==============================================================================
+  Initial candidate facts: candidate(zara), has_degree(zara, bachelors), has_skill(zara, data_structures), has_skill(zara, pandas), has_skill(zara, python), has_skill(zara, statistics), has_skill(zara, tensorflow), total_experience_years(zara, 2)
+
+  Role results:
+    Role                       Status          Req. met  Skills  Missing
+    Machine Learning Engineer  Fully eligible      100%     3/3  nothing
+    Python Developer           Fully eligible      100%     2/2  nothing
+    Data Scientist             Partial match        83%     4/4  Degree: Masters or higher
+    Data Analyst               Partial match        80%     2/3  SQL
+    Cloud Engineer             Partial match        50%     1/3  Linux, Cloud Computing, Certification: AWS Certified Solutions Architect
+    Frontend Developer         Not matched          40%     0/3  HTML, CSS, JavaScript
+
+  Forward chaining trace (only rules that produced new facts are listed):
+    [pass 1] R1 -> has_skill(zara, deep_learning)   because is_a(tensorflow, deep_learning), has_skill(zara, tensorflow)
+    [pass 1] R2 -> meets_degree(zara, cloud_engineer)   because has_degree(zara, bachelors), degree_rank(bachelors, 1), min_degree_rank(cloud_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(zara, data_analyst)   because has_degree(zara, bachelors), degree_rank(bachelors, 1), min_degree_rank(data_analyst, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(zara, frontend_developer)   because has_degree(zara, bachelors), degree_rank(bachelors, 1), min_degree_rank(frontend_developer, 0), gte(1, 0)
+    [pass 1] R2 -> meets_degree(zara, ml_engineer)   because has_degree(zara, bachelors), degree_rank(bachelors, 1), min_degree_rank(ml_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(zara, python_developer)   because has_degree(zara, bachelors), degree_rank(bachelors, 1), min_degree_rank(python_developer, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(zara, cloud_engineer)   because total_experience_years(zara, 2), min_experience(cloud_engineer, 2), gte(2, 2)
+    [pass 1] R4 -> meets_experience(zara, data_analyst)   because total_experience_years(zara, 2), min_experience(data_analyst, 0), gte(2, 0)
+    [pass 1] R4 -> meets_experience(zara, data_scientist)   because total_experience_years(zara, 2), min_experience(data_scientist, 1), gte(2, 1)
+    [pass 1] R4 -> meets_experience(zara, frontend_developer)   because total_experience_years(zara, 2), min_experience(frontend_developer, 0), gte(2, 0)
+    [pass 1] R4 -> meets_experience(zara, ml_engineer)   because total_experience_years(zara, 2), min_experience(ml_engineer, 1), gte(2, 1)
+    [pass 1] R4 -> meets_experience(zara, python_developer)   because total_experience_years(zara, 2), min_experience(python_developer, 0), gte(2, 0)
+    [pass 1] R7 -> eligible(zara, python_developer)   because has_skill(zara, python), has_skill(zara, data_structures), meets_degree(zara, python_developer), meets_experience(zara, python_developer)
+    [pass 1] R11 -> recommended(zara, python_developer)   because eligible(zara, python_developer)
+    [pass 1] R12 -> matched_skill(zara, cloud_engineer, python)   because requires_skill(cloud_engineer, python), has_skill(zara, python)
+    [pass 1] R12 -> matched_skill(zara, data_analyst, pandas)   because requires_skill(data_analyst, pandas), has_skill(zara, pandas)
+    [pass 1] R12 -> matched_skill(zara, data_analyst, python)   because requires_skill(data_analyst, python), has_skill(zara, python)
+    [pass 1] R12 -> matched_skill(zara, data_scientist, pandas)   because requires_skill(data_scientist, pandas), has_skill(zara, pandas)
+    [pass 1] R12 -> matched_skill(zara, data_scientist, python)   because requires_skill(data_scientist, python), has_skill(zara, python)
+    [pass 1] R12 -> matched_skill(zara, data_scientist, statistics)   because requires_skill(data_scientist, statistics), has_skill(zara, statistics)
+    [pass 1] R12 -> matched_skill(zara, ml_engineer, data_structures)   because requires_skill(ml_engineer, data_structures), has_skill(zara, data_structures)
+    [pass 1] R12 -> matched_skill(zara, ml_engineer, python)   because requires_skill(ml_engineer, python), has_skill(zara, python)
+    [pass 1] R12 -> matched_skill(zara, python_developer, data_structures)   because requires_skill(python_developer, data_structures), has_skill(zara, data_structures)
+    [pass 1] R12 -> matched_skill(zara, python_developer, python)   because requires_skill(python_developer, python), has_skill(zara, python)
+    [pass 1] R13 -> relevant_to(zara, cloud_engineer)   because matched_skill(zara, cloud_engineer, python)
+    [pass 1] R13 -> relevant_to(zara, data_analyst)   because matched_skill(zara, data_analyst, pandas)
+    [pass 1] R13 -> relevant_to(zara, data_scientist)   because matched_skill(zara, data_scientist, pandas)
+    [pass 1] R13 -> relevant_to(zara, ml_engineer)   because matched_skill(zara, ml_engineer, data_structures)
+    [pass 1] R13 -> relevant_to(zara, python_developer)   because matched_skill(zara, python_developer, data_structures)
+    [pass 1] R14 -> knows_category(zara, programming)   because has_skill(zara, data_structures), belongs_to(data_structures, programming)
+    [pass 1] R14 -> knows_category(zara, ai)   because has_skill(zara, deep_learning), belongs_to(deep_learning, ai)
+    [pass 1] R14 -> knows_category(zara, data)   because has_skill(zara, pandas), belongs_to(pandas, data)
+    [pass 1] R15 -> person(zara)   because candidate(zara)
+    [pass 2] R1 -> has_skill(zara, machine_learning)   because is_a(deep_learning, machine_learning), has_skill(zara, deep_learning)
+    [pass 2] R6 -> eligible(zara, ml_engineer)   because has_skill(zara, python), has_skill(zara, machine_learning), has_skill(zara, data_structures), meets_degree(zara, ml_engineer), meets_experience(zara, ml_engineer)
+    [pass 2] R11 -> recommended(zara, ml_engineer)   because eligible(zara, ml_engineer)
+    [pass 2] R12 -> matched_skill(zara, data_scientist, machine_learning)   because requires_skill(data_scientist, machine_learning), has_skill(zara, machine_learning)
+    [pass 2] R12 -> matched_skill(zara, ml_engineer, machine_learning)   because requires_skill(ml_engineer, machine_learning), has_skill(zara, machine_learning)
+    [pass 3] no new facts: fixed point reached
+  Total new facts derived: 38 in 3 passes
+  Eligibility rules still unsatisfied at the fixed point:
+    R5 eligible(zara, data_analyst) missing: has_skill(zara, sql)
+    R8 eligible(zara, frontend_developer) missing: has_skill(zara, html), has_skill(zara, css), has_skill(zara, javascript)
+    R9 eligible(zara, data_scientist) missing: meets_degree(zara, data_scientist)
+    R10 eligible(zara, cloud_engineer) missing: has_skill(zara, linux), has_skill(zara, cloud_computing), has_cert(zara, aws_solutions_architect)
+
+  Backward chaining for eligible(zara, ml_engineer):
+    GOAL: eligible(zara, ml_engineer)
+      TRY rule R6: eligible(X, ml_engineer) :- has_skill(X, python), has_skill(X, machine_learning), has_skill(X, data_structures), meets_degree(X, ml_engineer), meets_experience(X, ml_engineer).
+            GOAL: has_skill(zara, python)
+              FACT found: has_skill(zara, python)
+            GOAL: has_skill(zara, machine_learning)
+              TRY rule R1: has_skill(X, T) :- is_a(S, T), has_skill(X, S).
+                    GOAL: is_a(S_3, machine_learning)
+                      FACT found: is_a(deep_learning, machine_learning)
+                      FACT found: is_a(scikit_learn, machine_learning)
+                    GOAL: has_skill(zara, deep_learning)
+                      TRY rule R1: has_skill(X, T) :- is_a(S, T), has_skill(X, S).
+                            GOAL: is_a(S_4, deep_learning)
+                              FACT found: is_a(pytorch, deep_learning)
+                              FACT found: is_a(tensorflow, deep_learning)
+                            GOAL: has_skill(zara, pytorch)
+                              TRY rule R1: has_skill(X, T) :- is_a(S, T), has_skill(X, S).
+                                    GOAL: is_a(S_5, pytorch)
+                                      NOT PROVED: is_a(S_5, pytorch) (not a known fact, and no rule could prove it)
+                              FAIL rule R1: could not prove is_a(S_5, pytorch)
+                              NOT PROVED: has_skill(zara, pytorch) (not a known fact, and no rule could prove it)
+                            GOAL: has_skill(zara, tensorflow)
+                              FACT found: has_skill(zara, tensorflow)
+                      SUCCESS rule R1 proves has_skill(zara, deep_learning)
+              SUCCESS rule R1 proves has_skill(zara, machine_learning)
+            GOAL: has_skill(zara, data_structures)
+              FACT found: has_skill(zara, data_structures)
+            GOAL: meets_degree(zara, ml_engineer)
+              TRY rule R2: meets_degree(X, R) :- has_degree(X, D), degree_rank(D, N), min_degree_rank(R, M), gte(N, M).
+                    GOAL: has_degree(zara, D_6)
+                      FACT found: has_degree(zara, bachelors)
+                    GOAL: degree_rank(bachelors, N_6)
+                      FACT found: degree_rank(bachelors, 1)
+                    GOAL: min_degree_rank(ml_engineer, M_6)
+                      FACT found: min_degree_rank(ml_engineer, 1)
+                    BUILT-IN: gte(1, 1) is true
+              SUCCESS rule R2 proves meets_degree(zara, ml_engineer)
+            GOAL: meets_experience(zara, ml_engineer)
+              TRY rule R4: meets_experience(X, R) :- total_experience_years(X, Y), min_experience(R, M), gte(Y, M).
+                    GOAL: total_experience_years(zara, Y_7)
+                      FACT found: total_experience_years(zara, 2)
+                    GOAL: min_experience(ml_engineer, M_7)
+                      FACT found: min_experience(ml_engineer, 1)
+                    BUILT-IN: gte(2, 1) is true
+              SUCCESS rule R4 proves meets_experience(zara, ml_engineer)
+      SUCCESS rule R6 proves eligible(zara, ml_engineer)
+
+    RESULT: eligible(zara, ml_engineer) is PROVED
+
+  Explanation (Machine Learning Engineer): Recommended. Every requirement for Machine Learning Engineer is met. Note: Machine Learning was inferred from TensorFlow (skill hierarchy).
+  FINAL RECOMMENDATION: Machine Learning Engineer, Python Developer
+
+==============================================================================
+Scenario E: Hamza, degree failure (needs Masters)
+==============================================================================
+  Initial candidate facts: candidate(hamza), has_degree(hamza, bachelors), has_skill(hamza, machine_learning), has_skill(hamza, pandas), has_skill(hamza, python), has_skill(hamza, statistics), total_experience_years(hamza, 3)
+
+  Role results:
+    Role                       Status          Req. met  Skills  Missing
+    Data Scientist             Partial match        83%     4/4  Degree: Masters or higher
+    Data Analyst               Partial match        80%     2/3  SQL
+    Machine Learning Engineer  Partial match        80%     2/3  Data Structures
+    Python Developer           Partial match        75%     1/2  Data Structures
+    Cloud Engineer             Partial match        50%     1/3  Linux, Cloud Computing, Certification: AWS Certified Solutions Architect
+    Frontend Developer         Not matched          40%     0/3  HTML, CSS, JavaScript
+
+  Forward chaining trace (only rules that produced new facts are listed):
+    [pass 1] R2 -> meets_degree(hamza, cloud_engineer)   because has_degree(hamza, bachelors), degree_rank(bachelors, 1), min_degree_rank(cloud_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(hamza, data_analyst)   because has_degree(hamza, bachelors), degree_rank(bachelors, 1), min_degree_rank(data_analyst, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(hamza, frontend_developer)   because has_degree(hamza, bachelors), degree_rank(bachelors, 1), min_degree_rank(frontend_developer, 0), gte(1, 0)
+    [pass 1] R2 -> meets_degree(hamza, ml_engineer)   because has_degree(hamza, bachelors), degree_rank(bachelors, 1), min_degree_rank(ml_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(hamza, python_developer)   because has_degree(hamza, bachelors), degree_rank(bachelors, 1), min_degree_rank(python_developer, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(hamza, cloud_engineer)   because total_experience_years(hamza, 3), min_experience(cloud_engineer, 2), gte(3, 2)
+    [pass 1] R4 -> meets_experience(hamza, data_analyst)   because total_experience_years(hamza, 3), min_experience(data_analyst, 0), gte(3, 0)
+    [pass 1] R4 -> meets_experience(hamza, data_scientist)   because total_experience_years(hamza, 3), min_experience(data_scientist, 1), gte(3, 1)
+    [pass 1] R4 -> meets_experience(hamza, frontend_developer)   because total_experience_years(hamza, 3), min_experience(frontend_developer, 0), gte(3, 0)
+    [pass 1] R4 -> meets_experience(hamza, ml_engineer)   because total_experience_years(hamza, 3), min_experience(ml_engineer, 1), gte(3, 1)
+    [pass 1] R4 -> meets_experience(hamza, python_developer)   because total_experience_years(hamza, 3), min_experience(python_developer, 0), gte(3, 0)
+    [pass 1] R12 -> matched_skill(hamza, cloud_engineer, python)   because requires_skill(cloud_engineer, python), has_skill(hamza, python)
+    [pass 1] R12 -> matched_skill(hamza, data_analyst, pandas)   because requires_skill(data_analyst, pandas), has_skill(hamza, pandas)
+    [pass 1] R12 -> matched_skill(hamza, data_analyst, python)   because requires_skill(data_analyst, python), has_skill(hamza, python)
+    [pass 1] R12 -> matched_skill(hamza, data_scientist, machine_learning)   because requires_skill(data_scientist, machine_learning), has_skill(hamza, machine_learning)
+    [pass 1] R12 -> matched_skill(hamza, data_scientist, pandas)   because requires_skill(data_scientist, pandas), has_skill(hamza, pandas)
+    [pass 1] R12 -> matched_skill(hamza, data_scientist, python)   because requires_skill(data_scientist, python), has_skill(hamza, python)
+    [pass 1] R12 -> matched_skill(hamza, data_scientist, statistics)   because requires_skill(data_scientist, statistics), has_skill(hamza, statistics)
+    [pass 1] R12 -> matched_skill(hamza, ml_engineer, machine_learning)   because requires_skill(ml_engineer, machine_learning), has_skill(hamza, machine_learning)
+    [pass 1] R12 -> matched_skill(hamza, ml_engineer, python)   because requires_skill(ml_engineer, python), has_skill(hamza, python)
+    [pass 1] R12 -> matched_skill(hamza, python_developer, python)   because requires_skill(python_developer, python), has_skill(hamza, python)
+    [pass 1] R13 -> relevant_to(hamza, cloud_engineer)   because matched_skill(hamza, cloud_engineer, python)
+    [pass 1] R13 -> relevant_to(hamza, data_analyst)   because matched_skill(hamza, data_analyst, pandas)
+    [pass 1] R13 -> relevant_to(hamza, data_scientist)   because matched_skill(hamza, data_scientist, machine_learning)
+    [pass 1] R13 -> relevant_to(hamza, ml_engineer)   because matched_skill(hamza, ml_engineer, machine_learning)
+    [pass 1] R13 -> relevant_to(hamza, python_developer)   because matched_skill(hamza, python_developer, python)
+    [pass 1] R14 -> knows_category(hamza, ai)   because has_skill(hamza, machine_learning), belongs_to(machine_learning, ai)
+    [pass 1] R14 -> knows_category(hamza, data)   because has_skill(hamza, pandas), belongs_to(pandas, data)
+    [pass 1] R14 -> knows_category(hamza, programming)   because has_skill(hamza, python), belongs_to(python, programming)
+    [pass 1] R15 -> person(hamza)   because candidate(hamza)
+    [pass 2] no new facts: fixed point reached
+  Total new facts derived: 30 in 2 passes
+  Eligibility rules still unsatisfied at the fixed point:
+    R5 eligible(hamza, data_analyst) missing: has_skill(hamza, sql)
+    R6 eligible(hamza, ml_engineer) missing: has_skill(hamza, data_structures)
+    R7 eligible(hamza, python_developer) missing: has_skill(hamza, data_structures)
+    R8 eligible(hamza, frontend_developer) missing: has_skill(hamza, html), has_skill(hamza, css), has_skill(hamza, javascript)
+    R9 eligible(hamza, data_scientist) missing: meets_degree(hamza, data_scientist)
+    R10 eligible(hamza, cloud_engineer) missing: has_skill(hamza, linux), has_skill(hamza, cloud_computing), has_cert(hamza, aws_solutions_architect)
+
+  Backward chaining for eligible(hamza, data_scientist):
+    GOAL: eligible(hamza, data_scientist)
+      TRY rule R9: eligible(X, data_scientist) :- has_skill(X, python), has_skill(X, statistics), has_skill(X, machine_learning), has_skill(X, pandas), meets_degree(X, data_scientist), meets_experience(X, data_scientist).
+            GOAL: has_skill(hamza, python)
+              FACT found: has_skill(hamza, python)
+            GOAL: has_skill(hamza, statistics)
+              FACT found: has_skill(hamza, statistics)
+            GOAL: has_skill(hamza, machine_learning)
+              FACT found: has_skill(hamza, machine_learning)
+            GOAL: has_skill(hamza, pandas)
+              FACT found: has_skill(hamza, pandas)
+            GOAL: meets_degree(hamza, data_scientist)
+              TRY rule R2: meets_degree(X, R) :- has_degree(X, D), degree_rank(D, N), min_degree_rank(R, M), gte(N, M).
+                    GOAL: has_degree(hamza, D_6)
+                      FACT found: has_degree(hamza, bachelors)
+                    GOAL: degree_rank(bachelors, N_6)
+                      FACT found: degree_rank(bachelors, 1)
+                    GOAL: min_degree_rank(data_scientist, M_6)
+                      FACT found: min_degree_rank(data_scientist, 2)
+                    BUILT-IN: gte(1, 2) is false
+              FAIL rule R2: could not prove gte(1, 2)
+              TRY rule R3: meets_degree(X, R) :- total_experience_years(X, Y), degree_waiver_years(W), gte(Y, W), job_role(R).
+                    GOAL: total_experience_years(hamza, Y_7)
+                      FACT found: total_experience_years(hamza, 3)
+                    GOAL: degree_waiver_years(W_7)
+                      FACT found: degree_waiver_years(5)
+                    BUILT-IN: gte(3, 5) is false
+              FAIL rule R3: could not prove gte(3, 5)
+              NOT PROVED: meets_degree(hamza, data_scientist) (not a known fact, and no rule could prove it)
+      FAIL rule R9: could not prove meets_degree(hamza, data_scientist)
+      NOT PROVED: eligible(hamza, data_scientist) (not a known fact, and no rule could prove it)
+
+    RESULT: eligible(hamza, data_scientist) is NOT PROVED
+
+  Explanation (Data Scientist): Not yet eligible for Data Scientist. Missing: Degree: Masters or higher.
+  FINAL RECOMMENDATION: No role fully eligible yet
+
+==============================================================================
+Scenario F: Usman, experience exception (6 years, no degree)
+==============================================================================
+  Initial candidate facts: candidate(usman), has_degree(usman, none), has_skill(usman, data_structures), has_skill(usman, pandas), has_skill(usman, postgresql), has_skill(usman, python), total_experience_years(usman, 6)
+
+  Role results:
+    Role                       Status          Req. met  Skills  Missing
+    Data Analyst               Fully eligible      100%     3/3  nothing
+    Python Developer           Fully eligible      100%     2/2  nothing
+    Machine Learning Engineer  Partial match        80%     2/3  Machine Learning
+    Data Scientist             Partial match        67%     2/4  Statistics, Machine Learning
+    Cloud Engineer             Partial match        50%     1/3  Linux, Cloud Computing, Certification: AWS Certified Solutions Architect
+    Frontend Developer         Not matched          40%     0/3  HTML, CSS, JavaScript
+
+  Forward chaining trace (only rules that produced new facts are listed):
+    [pass 1] R1 -> has_skill(usman, sql)   because is_a(postgresql, sql), has_skill(usman, postgresql)
+    [pass 1] R2 -> meets_degree(usman, frontend_developer)   because has_degree(usman, none), degree_rank(none, 0), min_degree_rank(frontend_developer, 0), gte(0, 0)
+    [pass 1] R3 -> meets_degree(usman, cloud_engineer)   because total_experience_years(usman, 6), degree_waiver_years(5), gte(6, 5), job_role(cloud_engineer)
+    [pass 1] R3 -> meets_degree(usman, data_analyst)   because total_experience_years(usman, 6), degree_waiver_years(5), gte(6, 5), job_role(data_analyst)
+    [pass 1] R3 -> meets_degree(usman, data_scientist)   because total_experience_years(usman, 6), degree_waiver_years(5), gte(6, 5), job_role(data_scientist)
+    [pass 1] R3 -> meets_degree(usman, ml_engineer)   because total_experience_years(usman, 6), degree_waiver_years(5), gte(6, 5), job_role(ml_engineer)
+    [pass 1] R3 -> meets_degree(usman, python_developer)   because total_experience_years(usman, 6), degree_waiver_years(5), gte(6, 5), job_role(python_developer)
+    [pass 1] R4 -> meets_experience(usman, cloud_engineer)   because total_experience_years(usman, 6), min_experience(cloud_engineer, 2), gte(6, 2)
+    [pass 1] R4 -> meets_experience(usman, data_analyst)   because total_experience_years(usman, 6), min_experience(data_analyst, 0), gte(6, 0)
+    [pass 1] R4 -> meets_experience(usman, data_scientist)   because total_experience_years(usman, 6), min_experience(data_scientist, 1), gte(6, 1)
+    [pass 1] R4 -> meets_experience(usman, frontend_developer)   because total_experience_years(usman, 6), min_experience(frontend_developer, 0), gte(6, 0)
+    [pass 1] R4 -> meets_experience(usman, ml_engineer)   because total_experience_years(usman, 6), min_experience(ml_engineer, 1), gte(6, 1)
+    [pass 1] R4 -> meets_experience(usman, python_developer)   because total_experience_years(usman, 6), min_experience(python_developer, 0), gte(6, 0)
+    [pass 1] R5 -> eligible(usman, data_analyst)   because has_skill(usman, python), has_skill(usman, sql), has_skill(usman, pandas), meets_degree(usman, data_analyst), meets_experience(usman, data_analyst)
+    [pass 1] R7 -> eligible(usman, python_developer)   because has_skill(usman, python), has_skill(usman, data_structures), meets_degree(usman, python_developer), meets_experience(usman, python_developer)
+    [pass 1] R11 -> recommended(usman, data_analyst)   because eligible(usman, data_analyst)
+    [pass 1] R11 -> recommended(usman, python_developer)   because eligible(usman, python_developer)
+    [pass 1] R12 -> matched_skill(usman, cloud_engineer, python)   because requires_skill(cloud_engineer, python), has_skill(usman, python)
+    [pass 1] R12 -> matched_skill(usman, data_analyst, pandas)   because requires_skill(data_analyst, pandas), has_skill(usman, pandas)
+    [pass 1] R12 -> matched_skill(usman, data_analyst, python)   because requires_skill(data_analyst, python), has_skill(usman, python)
+    [pass 1] R12 -> matched_skill(usman, data_analyst, sql)   because requires_skill(data_analyst, sql), has_skill(usman, sql)
+    [pass 1] R12 -> matched_skill(usman, data_scientist, pandas)   because requires_skill(data_scientist, pandas), has_skill(usman, pandas)
+    [pass 1] R12 -> matched_skill(usman, data_scientist, python)   because requires_skill(data_scientist, python), has_skill(usman, python)
+    [pass 1] R12 -> matched_skill(usman, ml_engineer, data_structures)   because requires_skill(ml_engineer, data_structures), has_skill(usman, data_structures)
+    [pass 1] R12 -> matched_skill(usman, ml_engineer, python)   because requires_skill(ml_engineer, python), has_skill(usman, python)
+    [pass 1] R12 -> matched_skill(usman, python_developer, data_structures)   because requires_skill(python_developer, data_structures), has_skill(usman, data_structures)
+    [pass 1] R12 -> matched_skill(usman, python_developer, python)   because requires_skill(python_developer, python), has_skill(usman, python)
+    [pass 1] R13 -> relevant_to(usman, cloud_engineer)   because matched_skill(usman, cloud_engineer, python)
+    [pass 1] R13 -> relevant_to(usman, data_analyst)   because matched_skill(usman, data_analyst, pandas)
+    [pass 1] R13 -> relevant_to(usman, data_scientist)   because matched_skill(usman, data_scientist, pandas)
+    [pass 1] R13 -> relevant_to(usman, ml_engineer)   because matched_skill(usman, ml_engineer, data_structures)
+    [pass 1] R13 -> relevant_to(usman, python_developer)   because matched_skill(usman, python_developer, data_structures)
+    [pass 1] R14 -> knows_category(usman, programming)   because has_skill(usman, data_structures), belongs_to(data_structures, programming)
+    [pass 1] R14 -> knows_category(usman, data)   because has_skill(usman, pandas), belongs_to(pandas, data)
+    [pass 1] R15 -> person(usman)   because candidate(usman)
+    [pass 2] no new facts: fixed point reached
+  Total new facts derived: 35 in 2 passes
+  Eligibility rules still unsatisfied at the fixed point:
+    R6 eligible(usman, ml_engineer) missing: has_skill(usman, machine_learning)
+    R8 eligible(usman, frontend_developer) missing: has_skill(usman, html), has_skill(usman, css), has_skill(usman, javascript)
+    R9 eligible(usman, data_scientist) missing: has_skill(usman, statistics), has_skill(usman, machine_learning)
+    R10 eligible(usman, cloud_engineer) missing: has_skill(usman, linux), has_skill(usman, cloud_computing), has_cert(usman, aws_solutions_architect)
+
+  Backward chaining for eligible(usman, python_developer):
+    GOAL: eligible(usman, python_developer)
+      TRY rule R7: eligible(X, python_developer) :- has_skill(X, python), has_skill(X, data_structures), meets_degree(X, python_developer), meets_experience(X, python_developer).
+            GOAL: has_skill(usman, python)
+              FACT found: has_skill(usman, python)
+            GOAL: has_skill(usman, data_structures)
+              FACT found: has_skill(usman, data_structures)
+            GOAL: meets_degree(usman, python_developer)
+              TRY rule R2: meets_degree(X, R) :- has_degree(X, D), degree_rank(D, N), min_degree_rank(R, M), gte(N, M).
+                    GOAL: has_degree(usman, D_4)
+                      FACT found: has_degree(usman, none)
+                    GOAL: degree_rank(none, N_4)
+                      FACT found: degree_rank(none, 0)
+                    GOAL: min_degree_rank(python_developer, M_4)
+                      FACT found: min_degree_rank(python_developer, 1)
+                    BUILT-IN: gte(0, 1) is false
+              FAIL rule R2: could not prove gte(0, 1)
+              TRY rule R3: meets_degree(X, R) :- total_experience_years(X, Y), degree_waiver_years(W), gte(Y, W), job_role(R).
+                    GOAL: total_experience_years(usman, Y_5)
+                      FACT found: total_experience_years(usman, 6)
+                    GOAL: degree_waiver_years(W_5)
+                      FACT found: degree_waiver_years(5)
+                    BUILT-IN: gte(6, 5) is true
+                    GOAL: job_role(python_developer)
+                      FACT found: job_role(python_developer)
+              SUCCESS rule R3 proves meets_degree(usman, python_developer)
+            GOAL: meets_experience(usman, python_developer)
+              TRY rule R4: meets_experience(X, R) :- total_experience_years(X, Y), min_experience(R, M), gte(Y, M).
+                    GOAL: total_experience_years(usman, Y_6)
+                      FACT found: total_experience_years(usman, 6)
+                    GOAL: min_experience(python_developer, M_6)
+                      FACT found: min_experience(python_developer, 0)
+                    BUILT-IN: gte(6, 0) is true
+              SUCCESS rule R4 proves meets_experience(usman, python_developer)
+      SUCCESS rule R7 proves eligible(usman, python_developer)
+
+    RESULT: eligible(usman, python_developer) is PROVED
+
+  Explanation (Python Developer): Recommended. Every requirement for Python Developer is met. Note: the degree requirement is met through the experience exception (5+ years).
+  FINAL RECOMMENDATION: Data Analyst, Python Developer
+
+==============================================================================
+Scenario G: Ayesha, missing certification
+==============================================================================
+  Initial candidate facts: candidate(ayesha), has_degree(ayesha, bachelors), has_skill(ayesha, cloud_computing), has_skill(ayesha, linux), has_skill(ayesha, python), total_experience_years(ayesha, 3)
+
+  Role results:
+    Role                       Status          Req. met  Skills  Missing
+    Cloud Engineer             Partial match        83%     3/3  Certification: AWS Certified Solutions Architect
+    Python Developer           Partial match        75%     1/2  Data Structures
+    Data Analyst               Partial match        60%     1/3  SQL, Pandas
+    Machine Learning Engineer  Partial match        60%     1/3  Machine Learning, Data Structures
+    Data Scientist             Partial match        33%     1/4  Statistics, Machine Learning, Pandas, Degree: Masters or higher
+    Frontend Developer         Not matched          40%     0/3  HTML, CSS, JavaScript
+
+  Forward chaining trace (only rules that produced new facts are listed):
+    [pass 1] R2 -> meets_degree(ayesha, cloud_engineer)   because has_degree(ayesha, bachelors), degree_rank(bachelors, 1), min_degree_rank(cloud_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(ayesha, data_analyst)   because has_degree(ayesha, bachelors), degree_rank(bachelors, 1), min_degree_rank(data_analyst, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(ayesha, frontend_developer)   because has_degree(ayesha, bachelors), degree_rank(bachelors, 1), min_degree_rank(frontend_developer, 0), gte(1, 0)
+    [pass 1] R2 -> meets_degree(ayesha, ml_engineer)   because has_degree(ayesha, bachelors), degree_rank(bachelors, 1), min_degree_rank(ml_engineer, 1), gte(1, 1)
+    [pass 1] R2 -> meets_degree(ayesha, python_developer)   because has_degree(ayesha, bachelors), degree_rank(bachelors, 1), min_degree_rank(python_developer, 1), gte(1, 1)
+    [pass 1] R4 -> meets_experience(ayesha, cloud_engineer)   because total_experience_years(ayesha, 3), min_experience(cloud_engineer, 2), gte(3, 2)
+    [pass 1] R4 -> meets_experience(ayesha, data_analyst)   because total_experience_years(ayesha, 3), min_experience(data_analyst, 0), gte(3, 0)
+    [pass 1] R4 -> meets_experience(ayesha, data_scientist)   because total_experience_years(ayesha, 3), min_experience(data_scientist, 1), gte(3, 1)
+    [pass 1] R4 -> meets_experience(ayesha, frontend_developer)   because total_experience_years(ayesha, 3), min_experience(frontend_developer, 0), gte(3, 0)
+    [pass 1] R4 -> meets_experience(ayesha, ml_engineer)   because total_experience_years(ayesha, 3), min_experience(ml_engineer, 1), gte(3, 1)
+    [pass 1] R4 -> meets_experience(ayesha, python_developer)   because total_experience_years(ayesha, 3), min_experience(python_developer, 0), gte(3, 0)
+    [pass 1] R12 -> matched_skill(ayesha, cloud_engineer, cloud_computing)   because requires_skill(cloud_engineer, cloud_computing), has_skill(ayesha, cloud_computing)
+    [pass 1] R12 -> matched_skill(ayesha, cloud_engineer, linux)   because requires_skill(cloud_engineer, linux), has_skill(ayesha, linux)
+    [pass 1] R12 -> matched_skill(ayesha, cloud_engineer, python)   because requires_skill(cloud_engineer, python), has_skill(ayesha, python)
+    [pass 1] R12 -> matched_skill(ayesha, data_analyst, python)   because requires_skill(data_analyst, python), has_skill(ayesha, python)
+    [pass 1] R12 -> matched_skill(ayesha, data_scientist, python)   because requires_skill(data_scientist, python), has_skill(ayesha, python)
+    [pass 1] R12 -> matched_skill(ayesha, ml_engineer, python)   because requires_skill(ml_engineer, python), has_skill(ayesha, python)
+    [pass 1] R12 -> matched_skill(ayesha, python_developer, python)   because requires_skill(python_developer, python), has_skill(ayesha, python)
+    [pass 1] R13 -> relevant_to(ayesha, cloud_engineer)   because matched_skill(ayesha, cloud_engineer, cloud_computing)
+    [pass 1] R13 -> relevant_to(ayesha, data_analyst)   because matched_skill(ayesha, data_analyst, python)
+    [pass 1] R13 -> relevant_to(ayesha, data_scientist)   because matched_skill(ayesha, data_scientist, python)
+    [pass 1] R13 -> relevant_to(ayesha, ml_engineer)   because matched_skill(ayesha, ml_engineer, python)
+    [pass 1] R13 -> relevant_to(ayesha, python_developer)   because matched_skill(ayesha, python_developer, python)
+    [pass 1] R14 -> knows_category(ayesha, cloud)   because has_skill(ayesha, cloud_computing), belongs_to(cloud_computing, cloud)
+    [pass 1] R14 -> knows_category(ayesha, programming)   because has_skill(ayesha, python), belongs_to(python, programming)
+    [pass 1] R15 -> person(ayesha)   because candidate(ayesha)
+    [pass 2] no new facts: fixed point reached
+  Total new facts derived: 26 in 2 passes
+  Eligibility rules still unsatisfied at the fixed point:
+    R5 eligible(ayesha, data_analyst) missing: has_skill(ayesha, sql), has_skill(ayesha, pandas)
+    R6 eligible(ayesha, ml_engineer) missing: has_skill(ayesha, machine_learning), has_skill(ayesha, data_structures)
+    R7 eligible(ayesha, python_developer) missing: has_skill(ayesha, data_structures)
+    R8 eligible(ayesha, frontend_developer) missing: has_skill(ayesha, html), has_skill(ayesha, css), has_skill(ayesha, javascript)
+    R9 eligible(ayesha, data_scientist) missing: has_skill(ayesha, statistics), has_skill(ayesha, machine_learning), has_skill(ayesha, pandas), meets_degree(ayesha, data_scientist)
+    R10 eligible(ayesha, cloud_engineer) missing: has_cert(ayesha, aws_solutions_architect)
+
+  Backward chaining for eligible(ayesha, cloud_engineer):
+    GOAL: eligible(ayesha, cloud_engineer)
+      TRY rule R10: eligible(X, cloud_engineer) :- has_skill(X, python), has_skill(X, linux), has_skill(X, cloud_computing), meets_degree(X, cloud_engineer), meets_experience(X, cloud_engineer), has_cert(X, aws_solutions_architect).
+            GOAL: has_skill(ayesha, python)
+              FACT found: has_skill(ayesha, python)
+            GOAL: has_skill(ayesha, linux)
+              FACT found: has_skill(ayesha, linux)
+            GOAL: has_skill(ayesha, cloud_computing)
+              FACT found: has_skill(ayesha, cloud_computing)
+            GOAL: meets_degree(ayesha, cloud_engineer)
+              TRY rule R2: meets_degree(X, R) :- has_degree(X, D), degree_rank(D, N), min_degree_rank(R, M), gte(N, M).
+                    GOAL: has_degree(ayesha, D_7)
+                      FACT found: has_degree(ayesha, bachelors)
+                    GOAL: degree_rank(bachelors, N_7)
+                      FACT found: degree_rank(bachelors, 1)
+                    GOAL: min_degree_rank(cloud_engineer, M_7)
+                      FACT found: min_degree_rank(cloud_engineer, 1)
+                    BUILT-IN: gte(1, 1) is true
+              SUCCESS rule R2 proves meets_degree(ayesha, cloud_engineer)
+            GOAL: meets_experience(ayesha, cloud_engineer)
+              TRY rule R4: meets_experience(X, R) :- total_experience_years(X, Y), min_experience(R, M), gte(Y, M).
+                    GOAL: total_experience_years(ayesha, Y_8)
+                      FACT found: total_experience_years(ayesha, 3)
+                    GOAL: min_experience(cloud_engineer, M_8)
+                      FACT found: min_experience(cloud_engineer, 2)
+                    BUILT-IN: gte(3, 2) is true
+              SUCCESS rule R4 proves meets_experience(ayesha, cloud_engineer)
+            GOAL: has_cert(ayesha, aws_solutions_architect)
+              NOT PROVED: has_cert(ayesha, aws_solutions_architect) (not a known fact, and no rule could prove it)
+      FAIL rule R10: could not prove has_cert(ayesha, aws_solutions_architect)
+      NOT PROVED: eligible(ayesha, cloud_engineer) (not a known fact, and no rule could prove it)
+
+    RESULT: eligible(ayesha, cloud_engineer) is NOT PROVED
+
+  Explanation (Cloud Engineer): Not yet eligible for Cloud Engineer. Missing: Certification: AWS Certified Solutions Architect.
+  FINAL RECOMMENDATION: No role fully eligible yet
+
+==============================================================================
+Scenario H: Omar, no skills selected
+==============================================================================
+  Initial candidate facts: candidate(omar), has_degree(omar, none), total_experience_years(omar, 0)
+
+  Role results:
+    Role                       Status          Req. met  Skills  Missing
+    Frontend Developer         Not matched          40%     0/3  HTML, CSS, JavaScript
+    Python Developer           Not matched          25%     0/2  Python, Data Structures, Degree: Bachelors or higher
+    Data Analyst               Not matched          20%     0/3  Python, SQL, Pandas, Degree: Bachelors or higher
+    Machine Learning Engineer  Not matched           0%     0/3  Python, Machine Learning, Data Structures, Degree: Bachelors or higher, Experience: 1+ years
+    Data Scientist             Not matched           0%     0/4  Python, Statistics, Machine Learning, Pandas, Degree: Masters or higher, Experience: 1+ years
+    Cloud Engineer             Not matched           0%     0/3  Python, Linux, Cloud Computing, Degree: Bachelors or higher, Experience: 2+ years, Certification: AWS Certified Solutions Architect
+
+  Forward chaining trace (only rules that produced new facts are listed):
+    [pass 1] R2 -> meets_degree(omar, frontend_developer)   because has_degree(omar, none), degree_rank(none, 0), min_degree_rank(frontend_developer, 0), gte(0, 0)
+    [pass 1] R4 -> meets_experience(omar, data_analyst)   because total_experience_years(omar, 0), min_experience(data_analyst, 0), gte(0, 0)
+    [pass 1] R4 -> meets_experience(omar, frontend_developer)   because total_experience_years(omar, 0), min_experience(frontend_developer, 0), gte(0, 0)
+    [pass 1] R4 -> meets_experience(omar, python_developer)   because total_experience_years(omar, 0), min_experience(python_developer, 0), gte(0, 0)
+    [pass 1] R15 -> person(omar)   because candidate(omar)
+    [pass 2] no new facts: fixed point reached
+  Total new facts derived: 5 in 2 passes
+  Eligibility rules still unsatisfied at the fixed point:
+    R5 eligible(omar, data_analyst) missing: has_skill(omar, python), has_skill(omar, sql), has_skill(omar, pandas), meets_degree(omar, data_analyst)
+    R6 eligible(omar, ml_engineer) missing: has_skill(omar, python), has_skill(omar, machine_learning), has_skill(omar, data_structures), meets_degree(omar, ml_engineer), meets_experience(omar, ml_engineer)
+    R7 eligible(omar, python_developer) missing: has_skill(omar, python), has_skill(omar, data_structures), meets_degree(omar, python_developer)
+    R8 eligible(omar, frontend_developer) missing: has_skill(omar, html), has_skill(omar, css), has_skill(omar, javascript)
+    R9 eligible(omar, data_scientist) missing: has_skill(omar, python), has_skill(omar, statistics), has_skill(omar, machine_learning), has_skill(omar, pandas), meets_degree(omar, data_scientist), meets_experience(omar, data_scientist)
+    R10 eligible(omar, cloud_engineer) missing: has_skill(omar, python), has_skill(omar, linux), has_skill(omar, cloud_computing), meets_degree(omar, cloud_engineer), meets_experience(omar, cloud_engineer), has_cert(omar, aws_solutions_architect)
+
+  Backward chaining for eligible(omar, data_analyst):
+    GOAL: eligible(omar, data_analyst)
+      TRY rule R5: eligible(X, data_analyst) :- has_skill(X, python), has_skill(X, sql), has_skill(X, pandas), meets_degree(X, data_analyst), meets_experience(X, data_analyst).
+            GOAL: has_skill(omar, python)
+              TRY rule R1: has_skill(X, T) :- is_a(S, T), has_skill(X, S).
+                    GOAL: is_a(S_2, python)
+                      NOT PROVED: is_a(S_2, python) (not a known fact, and no rule could prove it)
+              FAIL rule R1: could not prove is_a(S_2, python)
+              NOT PROVED: has_skill(omar, python) (not a known fact, and no rule could prove it)
+      FAIL rule R5: could not prove has_skill(omar, python)
+      NOT PROVED: eligible(omar, data_analyst) (not a known fact, and no rule could prove it)
+
+    RESULT: eligible(omar, data_analyst) is NOT PROVED
+
+  Explanation (Data Analyst): Not matched. The candidate has none of the mandatory skills for Data Analyst.
+  FINAL RECOMMENDATION: No role fully eligible yet
+

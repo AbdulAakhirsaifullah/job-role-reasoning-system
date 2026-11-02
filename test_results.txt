@@ -1,0 +1,47 @@
+test_28_forward_chaining_derives_new_facts (test_reasoning.TestChaining.test_28_forward_chaining_derives_new_facts) ... ok
+test_29_forward_chaining_stops_at_fixed_point (test_reasoning.TestChaining.test_29_forward_chaining_stops_at_fixed_point) ... ok
+test_30_forward_reports_missing_premises (test_reasoning.TestChaining.test_30_forward_reports_missing_premises) ... ok
+test_31_backward_chaining_success (test_reasoning.TestChaining.test_31_backward_chaining_success) ... ok
+test_32_backward_chaining_failure (test_reasoning.TestChaining.test_32_backward_chaining_failure) ... ok
+test_33_backward_chaining_with_variable_goal (test_reasoning.TestChaining.test_33_backward_chaining_with_variable_goal) ... ok
+test_34_unify_basic_cases (test_reasoning.TestChaining.test_34_unify_basic_cases) ... ok
+test_35_rules_agree_with_plain_python_check (test_reasoning.TestConsistency.test_35_rules_agree_with_plain_python_check) ... ok
+test_36_all_rules_are_horn_clauses (test_reasoning.TestConsistency.test_36_all_rules_are_horn_clauses) ... ok
+test_37_builtins_come_after_their_variables_are_bound (test_reasoning.TestConsistency.test_37_builtins_come_after_their_variables_are_bound) ... ok
+test_38_eligibility_rules_generated_from_frames (test_reasoning.TestConsistency.test_38_eligibility_rules_generated_from_frames) ... ok
+test_15_meets_degree_positive_and_negative (test_reasoning.TestDegreeExperienceCertification.test_15_meets_degree_positive_and_negative) ... ok
+test_16_degree_failure_blocks_eligibility (test_reasoning.TestDegreeExperienceCertification.test_16_degree_failure_blocks_eligibility) ... ok
+test_17_higher_degree_satisfies_lower_requirement (test_reasoning.TestDegreeExperienceCertification.test_17_higher_degree_satisfies_lower_requirement) ... ok
+test_18_meets_experience_positive_and_negative (test_reasoning.TestDegreeExperienceCertification.test_18_meets_experience_positive_and_negative) ... ok
+test_19_experience_exception_relaxes_degree (test_reasoning.TestDegreeExperienceCertification.test_19_experience_exception_relaxes_degree) ... ok
+test_20_exception_boundary_at_five_years (test_reasoning.TestDegreeExperienceCertification.test_20_exception_boundary_at_five_years) ... ok
+test_21_exception_does_not_replace_experience_or_skills (test_reasoning.TestDegreeExperienceCertification.test_21_exception_does_not_replace_experience_or_skills) ... ok
+test_22_missing_certification_blocks_eligibility (test_reasoning.TestDegreeExperienceCertification.test_22_missing_certification_blocks_eligibility) ... ok
+test_23_with_certification_becomes_eligible (test_reasoning.TestDegreeExperienceCertification.test_23_with_certification_becomes_eligible) ... ok
+test_24_gte_builtin (test_reasoning.TestDegreeExperienceCertification.test_24_gte_builtin) ... ok
+test_39_diagram_files_match_knowledge_base (test_reasoning.TestDiagrams.test_39_diagram_files_match_knowledge_base) ... ok
+test_40_semantic_networks_show_is_a_has_a_part_of (test_reasoning.TestDiagrams.test_40_semantic_networks_show_is_a_has_a_part_of) ... ok
+test_01_all_requirements_met_gives_fully_eligible (test_reasoning.TestEligibilityPolicy.test_01_all_requirements_met_gives_fully_eligible) ... ok
+test_02_some_skills_gives_partial_match (test_reasoning.TestEligibilityPolicy.test_02_some_skills_gives_partial_match) ... ok
+test_03_no_mandatory_skill_gives_not_matched (test_reasoning.TestEligibilityPolicy.test_03_no_mandatory_skill_gives_not_matched) ... ok
+test_04_eligible_for_more_than_one_role (test_reasoning.TestEligibilityPolicy.test_04_eligible_for_more_than_one_role) ... ok
+test_05_empty_skill_set (test_reasoning.TestEligibilityPolicy.test_05_empty_skill_set) ... ok
+test_06_missing_skills_are_correct (test_reasoning.TestEligibilityPolicy.test_06_missing_skills_are_correct) ... ok
+test_07_optional_skills_and_certs_do_not_change_status (test_reasoning.TestEligibilityPolicy.test_07_optional_skills_and_certs_do_not_change_status) ... ok
+test_41_json_export_is_valid (test_reasoning.TestExports.test_41_json_export_is_valid) ... ok
+test_42_pdf_export_and_html_helpers (test_reasoning.TestExports.test_42_pdf_export_and_html_helpers) ... ok
+test_25_defaults_and_if_needed_slots (test_reasoning.TestFramesAndInput.test_25_defaults_and_if_needed_slots) ... ok
+test_26_unknown_values_are_rejected_safely (test_reasoning.TestFramesAndInput.test_26_unknown_values_are_rejected_safely) ... ok
+test_27_frames_reference_only_known_ids (test_reasoning.TestFramesAndInput.test_27_frames_reference_only_known_ids) ... ok
+test_08_tensorflow_gives_deep_learning_then_machine_learning (test_reasoning.TestSkillHierarchy.test_08_tensorflow_gives_deep_learning_then_machine_learning) ... ok
+test_09_hierarchy_makes_zara_eligible_for_ml_engineer (test_reasoning.TestSkillHierarchy.test_09_hierarchy_makes_zara_eligible_for_ml_engineer) ... ok
+test_10_hierarchy_only_goes_upward (test_reasoning.TestSkillHierarchy.test_10_hierarchy_only_goes_upward) ... ok
+test_11_react_gives_javascript_and_postgresql_gives_sql (test_reasoning.TestSkillHierarchy.test_11_react_gives_javascript_and_postgresql_gives_sql) ... ok
+test_12_backward_chaining_uses_hierarchy (test_reasoning.TestSkillHierarchy.test_12_backward_chaining_uses_hierarchy) ... ok
+test_13_hierarchy_rule_cannot_loop (test_reasoning.TestSkillHierarchy.test_13_hierarchy_rule_cannot_loop) ... ok
+test_14_taxonomy_has_no_cycles (test_reasoning.TestSkillHierarchy.test_14_taxonomy_has_no_cycles) ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 4.694s
+
+OK
